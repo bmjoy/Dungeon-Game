@@ -1,7 +1,7 @@
 # Dungeon-Game
 
 
-A small two level stealth game. Choose your weapon and make your way through the level fighting skeletons and collecting coins.
+A small two level mobile stealth game. Choose your weapon and make your way through the level fighting skeletons and collecting coins.
 
 .apk file for android phones.
 
