@@ -12,3 +12,5 @@ Downloadable .apk file for android phones.
 ![gameplay](https://user-images.githubusercontent.com/26521643/180762432-a83b42b0-2c0b-4bcb-a175-e797a6abac2c.PNG)
 
 ![defeat](https://user-images.githubusercontent.com/26521643/180759952-5957f4d7-d8d1-414e-977f-5454e498ab6b.PNG)
+
+<img width="300" alt="1" src="https://user-images.githubusercontent.com/26521643/180759952-5957f4d7-d8d1-414e-977f-5454e498ab6b.PNG">
