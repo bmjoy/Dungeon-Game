@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "PlayerAttack")
-            TakeDamage(other.gameObject.GetComponent<Weapon>().WeaponType.Damage);
+            TakeDamage(other.gameObject.GetComponent<Attack>()._weaponAttachedTo.Damage);
     }
 
     void TakeDamage(int damageAmount)
@@ -63,10 +63,3 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 }
-
-
-
-
-
-
-

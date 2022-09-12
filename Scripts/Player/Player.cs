@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] TMP_Text _text;
     [SerializeField] Health _health;
     [SerializeField] ParticleSystem _damageFX;
     [SerializeField] ParticleSystem _collectCoinsFX;
@@ -21,7 +17,14 @@ public class Player : MonoBehaviour
 
     Animator _anim;
 
+    int _coinsBeforeLevelStart;
+    [SerializeField] ItemType _coin;
+
+    //int diamondsBeforeLevelStart;
+    //[SerializeField] ItemType _diamond;
+
     public Health Health => _health;
+    public int CoinsBeforeLevelStart => _coinsBeforeLevelStart;
 
     void Start()
     {
@@ -29,9 +32,10 @@ public class Player : MonoBehaviour
         _health.HealthPoints = _maxHealth;
         _initialHealth = _maxHealth;
         _anim = GetComponent<Animator>();
-    }
 
-    void Update() => _text.SetText(_health.HealthPoints.ToString());
+        _coinsBeforeLevelStart = ItemCollection.CountOf(_coin);
+        //diamondsBeforeLevelStart = ItemCollection.CountOf(_diamond);
+    }
 
     void TakeDamage(int damageAmount)
     {
@@ -50,14 +54,17 @@ public class Player : MonoBehaviour
     void Die()
     {
         _onDied?.Invoke();
-        _anim.SetTrigger("Die");      
+        _anim.SetTrigger("Die");
+
+        ItemCollection.Remove(ItemCollection.CountOf(_coin) - _coinsBeforeLevelStart, _coin);
+        //ItemCollection.Remove(ItemCollection.CountOf(_diamond) - diamondsBeforeLevelStart, _diamond);
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "EnemyAttack")
         {
-            TakeDamage(other.gameObject.GetComponent<Weapon>().WeaponType.Damage);
+            TakeDamage(other.gameObject.GetComponent<Attack>()._weaponAttachedTo.Damage);
             Destroy(other.gameObject, 0.1f);
         }       
         else if (other.gameObject.tag == "Coin")

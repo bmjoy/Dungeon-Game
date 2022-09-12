@@ -9,18 +9,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float _moveSpeed = 8f;
     [SerializeField] float _rotationSpeed = 720f;
 
-    float _horizontal;
-    float _vertical;
+    Animator _animator;
+    Rigidbody _rigidbody;
     bool _movementEnabled = true;
 
-    Animator _animator;
-
-    void Start() => _animator = GetComponent<Animator>();
-
-    void Update()
+    void Start()
     {
-        _horizontal = _joystick.Horizontal;
-        _vertical = _joystick.Vertical;
+        _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
@@ -28,15 +24,15 @@ public class PlayerMovement : MonoBehaviour
         if (_movementEnabled)
         {
             Vector3 movementInput = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical);
+
             float magnitude = movementInput.magnitude;
             _animator.SetFloat("Speed", magnitude);
 
-            Vector3 inputDirection = new Vector3(_horizontal, 0, _vertical).normalized;
-            transform.Translate(inputDirection * _moveSpeed * magnitude * Time.deltaTime, Space.World);
+            _rigidbody.MovePosition(transform.position + movementInput * Time.deltaTime * _moveSpeed);
 
-            if (inputDirection != Vector3.zero)
+            if (movementInput != Vector3.zero)
             {
-                Quaternion toRotation = Quaternion.LookRotation(inputDirection, Vector3.up);
+                Quaternion toRotation = Quaternion.LookRotation(movementInput.normalized, Vector3.up);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _rotationSpeed * Time.deltaTime);
             }
         }      

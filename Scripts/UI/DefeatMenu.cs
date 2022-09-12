@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DefeatMenu : MonoBehaviour
 {
     [SerializeField] GameObject _defeatMenuObjects;
+    [SerializeField] Canvas _touchInputCanvas;
 
     public void ShowDefeatMenu()
     {
@@ -16,6 +17,7 @@ public class DefeatMenu : MonoBehaviour
     {
         Time.timeScale = 0;
         _defeatMenuObjects.SetActive(true);
+        _touchInputCanvas.gameObject.SetActive(false);
     }
 
     public void Restart()
